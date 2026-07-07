@@ -1,0 +1,16 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Dto;
+
+use Symfony\Component\Validator\Constraints as Assert;
+
+final class CommentUpdateBody
+{
+    public function __construct(
+        #[Assert\Length(min: 1, max: 65535)]
+        public ?string $content = null,
+    ) {
+    }
+}

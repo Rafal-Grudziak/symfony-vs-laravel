@@ -1,0 +1,78 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+    container_name: task-api-symfony-app
+    working_dir: /var/www/html
+    volumes:
+      - ./:/var/www/html
+    environment:
+      APP_ENV: dev
+      APP_DEBUG: "true"
+      APP_SECRET: ${APP_SECRET:-devsecretdevsecretdevsecretdev12}
+      DATABASE_URL: mysql://symfony:symfony@mysql:3306/symfony?serverVersion=8.0.40&charset=utf8mb4
+      DEFAULT_URI: http://localhost:8081
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - task-api-symfony
+
+  nginx:
+    image: nginx:1.27-alpine
+    container_name: task-api-symfony-nginx
+    ports:
+      - "8081:80"
+    volumes:
+      - ./:/var/www/html
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - app
+    networks:
+      - task-api-symfony
+
+  k6:
+    image: grafana/k6:0.55.0
+    profiles:
+      - benchmark
+    networks:
+      - task-api-symfony
+    volumes:
+      - ./benchmark:/var/benchmark:rw
+    working_dir: /var/benchmark/k6
+    environment:
+      BASE_URL: ${K6_BASE_URL:-http://nginx}
+      VUS: ${VUS:-10}
+      DURATION: ${DURATION:-30s}
+      RESULTS_DIR: /var/benchmark/results
+      TASK_MAX_ID: ${TASK_MAX_ID:-10000}
+      PROJECT_MAX_ID: ${PROJECT_MAX_ID:-50}
+      BULK_COUNT: ${BULK_COUNT:-50}
+
+  mysql:
+    image: mysql:8.4
+    container_name: task-api-symfony-mysql
+    environment:
+      MYSQL_DATABASE: symfony
+      MYSQL_USER: symfony
+      MYSQL_PASSWORD: symfony
+      MYSQL_ROOT_PASSWORD: rootsecret
+    ports:
+      - "33061:3306"
+    volumes:
+      - task_api_symfony_mysql:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-prootsecret"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+      start_period: 25s
+    networks:
+      - task-api-symfony
+
+networks:
+  task-api-symfony:
+
+volumes:
+  task_api_symfony_mysql:

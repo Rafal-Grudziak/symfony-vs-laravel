@@ -1,0 +1,9 @@
+# Optional standalone image (same scripts as compose bind-mount).
+# Build from repository root:
+#   docker build -f benchmark/docker/Dockerfile.k6 -t task-api-k6:local benchmark
+#
+# Run (write results to a host directory):
+#   mkdir -p ./out && docker run --rm --user "$(id -u):$(id -g)" -v "$PWD/out:/var/benchmark/results" task-api-k6:local run -e BASE_URL=http://host.docker.internal:8081 04-lazy-loading.js
+FROM grafana/k6:0.55.0
+WORKDIR /var/benchmark/k6
+COPY k6/ ./
