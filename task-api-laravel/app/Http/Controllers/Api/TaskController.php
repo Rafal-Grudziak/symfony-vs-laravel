@@ -51,7 +51,11 @@ class TaskController extends Controller
     {
         $with = $this->allowedIncludes(request(), ['project', 'comments', 'tags']);
 
-        return (new TaskResource($this->tasks->find($task->id, $with)))->response();
+        if ($with !== []) {
+            $task = $this->tasks->find($task->id, $with);
+        }
+
+        return (new TaskResource($task))->response();
     }
 
     public function update(UpdateTaskRequest $request, Task $task): JsonResponse

@@ -24,4 +24,16 @@ Route::prefix('reports')->group(function (): void {
 Route::prefix('benchmark')->group(function (): void {
     Route::post('bulk-tasks', [BenchmarkController::class, 'bulkTasks']);
     Route::post('bulk-comments', [BenchmarkController::class, 'bulkComments']);
+
+    Route::prefix('no-orm')->group(function (): void {
+        Route::post('warmup', \App\Http\Controllers\Api\Benchmark\NoOrmWarmupController::class);
+        Route::get('tasks', [\App\Http\Controllers\Api\Benchmark\NoOrmTaskController::class, 'index']);
+        Route::post('tasks', [\App\Http\Controllers\Api\Benchmark\NoOrmTaskController::class, 'store']);
+        Route::get('tasks/{id}', [\App\Http\Controllers\Api\Benchmark\NoOrmTaskController::class, 'show'])
+            ->whereNumber('id');
+        Route::put('tasks/{id}', [\App\Http\Controllers\Api\Benchmark\NoOrmTaskController::class, 'update'])
+            ->whereNumber('id');
+        Route::delete('tasks/{id}', [\App\Http\Controllers\Api\Benchmark\NoOrmTaskController::class, 'destroy'])
+            ->whereNumber('id');
+    });
 });

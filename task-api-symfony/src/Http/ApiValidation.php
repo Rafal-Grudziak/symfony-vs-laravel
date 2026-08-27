@@ -10,17 +10,34 @@ use Symfony\Component\Validator\ConstraintViolationListInterface;
 
 final class ApiValidation
 {
-    public static function violationResponse(ConstraintViolationListInterface $violations): JsonResponse
+    public static function violationResponse(
+        ConstraintViolationListInterface $violations,
+        int $status = Response::HTTP_UNPROCESSABLE_ENTITY,
+    ): JsonResponse {
+        return new JsonResponse(self::violationPayload($violations), $status);
+    }
+
+    /**
+     * @return array{message: string, errors: array<string, list<string>>}
+     */
+    public static function violationPayload(ConstraintViolationListInterface $violations): array
     {
         $errors = [];
         foreach ($violations as $violation) {
-            $path = trim($violation->getPropertyPath(), '[]');
+            $path = self::normalizePropertyPath($violation->getPropertyPath());
             $errors[$path][] = (string) $violation->getMessage();
         }
 
-        return new JsonResponse([
+        return [
             'message' => 'The given data was invalid.',
             'errors' => $errors,
-        ], Response::HTTP_UNPROCESSABLE_ENTITY);
+        ];
+    }
+
+    private static function normalizePropertyPath(string $propertyPath): string
+    {
+        $path = trim($propertyPath, '[]');
+
+        return $path !== '' ? $path : '_';
     }
 }

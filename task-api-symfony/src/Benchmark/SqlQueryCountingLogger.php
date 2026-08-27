@@ -9,6 +9,7 @@ use Psr\Log\AbstractLogger;
 /**
  * Zlicza wykonane zapytania SQL, gdy włączone jest zbieranie
  * metryk wykorzystywanych podczas testów wydajności.
+ * Przy włączonym dumpie zapisuje treść SQL + bindingi z kontekstu DBAL.
  */
 final class SqlQueryCountingLogger extends AbstractLogger
 {
@@ -27,8 +28,17 @@ final class SqlQueryCountingLogger extends AbstractLogger
             return;
         }
 
-        if (str_starts_with($message, 'Executing')) {
-            $this->collector->incrementSqlCount();
+        if (!str_starts_with($message, 'Executing')) {
+            return;
+        }
+
+        $this->collector->incrementSqlCount();
+
+        if ($this->collector->isSqlDumpEnabled()) {
+            $sql = isset($context['sql']) && is_string($context['sql'])
+                ? $context['sql']
+                : $message;
+            $this->collector->recordQuery($sql, $context['params'] ?? null);
         }
     }
 }

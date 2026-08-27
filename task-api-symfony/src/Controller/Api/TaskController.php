@@ -115,9 +115,12 @@ final class TaskController
     public function show(Request $request, #[MapEntity(id: 'id')] Task $task): JsonResponse
     {
         $with = IncludeParser::allowed($request, ['project', 'comments', 'tags']);
-        $fresh = $this->tasks->find((int) $task->getId(), $with);
 
-        return new JsonResponse(['data' => $this->serializer->taskToArray($fresh)]);
+        if ($with !== []) {
+            $task = $this->tasks->find((int) $task->getId(), $with);
+        }
+
+        return new JsonResponse(['data' => $this->serializer->taskToArray($task)]);
     }
 
     #[Route('/{id}', name: 'api_tasks_update', methods: ['PUT'], requirements: ['id' => '\d+'])]

@@ -15,10 +15,8 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->prependToGroup('api', [
-            ForceJsonResponseHeader::class,
-        ]);
-        $middleware->appendToGroup('api', [
             BenchmarkMetricsMiddleware::class,
+            ForceJsonResponseHeader::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

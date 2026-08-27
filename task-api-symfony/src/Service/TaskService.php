@@ -129,7 +129,10 @@ final class TaskService
      */
     private function syncTags(Task $task, array $tagIds): void
     {
-        $task->clearTaskTags();
+        foreach ($task->getTaskTags()->toArray() as $existing) {
+            $task->getTaskTags()->removeElement($existing);
+            $this->em->remove($existing);
+        }
 
         foreach ($tagIds as $tid) {
             $tag = $this->em->find(Tag::class, (int) $tid);

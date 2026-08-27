@@ -62,11 +62,11 @@ class Task
     private \DateTimeImmutable $updatedAt;
 
     /** @var Collection<int, Comment> */
-    #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'task', orphanRemoval: true, cascade: ['persist', 'remove'])]
+    #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'task', orphanRemoval: false, cascade: [])]
     private Collection $comments;
 
     /** @var Collection<int, TaskTag> */
-    #[ORM\OneToMany(targetEntity: TaskTag::class, mappedBy: 'task', orphanRemoval: true, cascade: ['persist', 'remove'])]
+    #[ORM\OneToMany(targetEntity: TaskTag::class, mappedBy: 'task', orphanRemoval: false, cascade: [])]
     private Collection $taskTags;
 
     public function __construct()

@@ -176,6 +176,6 @@ final class ResourceSerializer
             return $collection->isInitialized();
         }
 
-        return true;
+        return !$collection->isEmpty();
     }
 }
