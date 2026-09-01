@@ -6,10 +6,6 @@ namespace App\Api;
 
 use Symfony\Component\HttpFoundation\Request;
 
-/**
- * Mirrors Laravel ParsesApiIncludes (query key {@see self::PRIMARY_KEY}).
- * Also accepts {@see self::ALIAS_KEY} for thesis / client convenience.
- */
 final class IncludeParser
 {
     private const PRIMARY_KEY = 'with';

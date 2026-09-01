@@ -27,10 +27,6 @@ services:
     App\Benchmark\NoOrm\NoOrmTaskCatalog:
         shared: true
 
-    App\EventSubscriber\BenchmarkMetricsSubscriber:
-        arguments:
-            $logsDir: '%kernel.logs_dir%'
-
     Doctrine\DBAL\Logging\Middleware:
         arguments:
             $logger: '@App\Benchmark\SqlQueryCountingLogger'

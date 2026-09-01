@@ -1,6 +1,6 @@
 # Task Management API (Laravel 12)
 
-Aplikacja REST API przygotowana w Laravelu 12 na potrzeby porównania frameworków Laravel i Symfony oraz bibliotek Eloquent ORM i Doctrine ORM w ramach pracy magisterskiej. Projekt przedstawia prosty system zarządzania zadaniami z użytkownikami, projektami, zadaniami, komentarzami i tagami. Udostępnia paginację, filtrowanie, dołączanie relacji, endpointy raportujące oraz dodatkowe mechanizmy wykorzystywane podczas testów wydajnościowych.
+Aplikacja REST API przygotowana w Laravelu 12 na potrzeby porównania frameworków Laravel i Symfony oraz bibliotek Eloquent ORM i Doctrine ORM w ramach pracy magisterskiej. Projekt przedstawia prosty system zarządzania zadaniami z użytkownikami, projektami, zadaniami, komentarzami i tagami. Udostępnia paginację, filtrowanie, dołączanie relacji oraz mechanizmy wykorzystywane podczas testów wydajnościowych.
 
 ## Wykorzystane technologie
 
@@ -152,14 +152,6 @@ Obsługiwany parametr:
 
 - `with=tasks`
 
-### Raporty
-
-| Metoda | Ścieżka |
-|--------|---------|
-| GET | `/api/reports/tasks-per-project` |
-| GET | `/api/reports/top-projects` |
-| GET | `/api/reports/complex-task-overview?limit=50` |
-
 ### Endpointy wykorzystywane podczas testów wydajnościowych
 
 | Metoda | Ścieżka |
@@ -179,8 +171,6 @@ w odpowiedzi zwracane są dodatkowe informacje:
 
 - `X-Query-Count` – liczba wykonanych zapytań SQL,
 - `X-Response-Time-Ms` – czas obsługi żądania w milisekundach.
-
-Nagłówki te zostały przygotowane na potrzeby porównania wydajności implementacji Laravel i Symfony.
 
 ## Model danych
 
@@ -220,30 +210,3 @@ tworzy:
 - `database/factories` i `database/seeders` – generowanie danych testowych,
 - `docker` – konfiguracja środowiska Docker,
 - `docker-compose.yml` – konfiguracja kontenerów.
-
-## Testy
-
-```bash
-php artisan test
-```
-
-## Weryfikacja przed testami wydajnościowymi
-
-Przed uruchomieniem benchmarków warto sprawdzić, czy obie aplikacje działają w identycznych warunkach.
-
-1. Skopiuj plik konfiguracyjny:
-
-```bash
-cp scripts/env.example scripts/.env
-```
-
-2. Uzupełnij adresy aplikacji oraz dane dostępowe do baz.
-
-3. Uruchom odpowiednie skrypty:
-
-```bash
-make verify-api
-make verify-db
-make verify-dataset
-make verify-benchmark
-```

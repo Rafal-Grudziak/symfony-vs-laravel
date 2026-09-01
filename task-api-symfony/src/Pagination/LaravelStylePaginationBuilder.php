@@ -6,9 +6,6 @@ namespace App\Pagination;
 
 use Symfony\Component\HttpFoundation\Request;
 
-/**
- * Builds Laravel-style {@see PaginatedResourceResponse} JSON shape.
- */
 final class LaravelStylePaginationBuilder
 {
     /**

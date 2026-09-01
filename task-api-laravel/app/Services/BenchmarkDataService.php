@@ -8,10 +8,6 @@ use Illuminate\Support\Facades\DB;
 
 class BenchmarkDataService
 {
-    /**
-     * Dodaje wiele zadań jednocześnie za pomocą surowego zapytania SQL
-     * (bez wykorzystania zdarzeń modelu). Wykorzystywane podczas testów wydajności.
-     */
     public function bulkInsertTasks(int $projectId, int $count): int
     {
         $now = CarbonImmutable::now()->toDateTimeString();
@@ -45,10 +41,6 @@ class BenchmarkDataService
         return $inserted;
     }
 
-    /**
-     * Dodaje wiele komentarzy do wskazanego zadania za pomocą
-     * surowego zapytania SQL. Wykorzystywane podczas testów wydajności.
-     */
     public function bulkInsertComments(int $taskId, int $count): int
     {
         $now = CarbonImmutable::now()->toDateTimeString();

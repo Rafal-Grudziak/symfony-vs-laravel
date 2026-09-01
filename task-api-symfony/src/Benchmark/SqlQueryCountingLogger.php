@@ -6,11 +6,6 @@ namespace App\Benchmark;
 
 use Psr\Log\AbstractLogger;
 
-/**
- * Zlicza wykonane zapytania SQL, gdy włączone jest zbieranie
- * metryk wykorzystywanych podczas testów wydajności.
- * Przy włączonym dumpie zapisuje treść SQL + bindingi z kontekstu DBAL.
- */
 final class SqlQueryCountingLogger extends AbstractLogger
 {
     public function __construct(
@@ -33,12 +28,5 @@ final class SqlQueryCountingLogger extends AbstractLogger
         }
 
         $this->collector->incrementSqlCount();
-
-        if ($this->collector->isSqlDumpEnabled()) {
-            $sql = isset($context['sql']) && is_string($context['sql'])
-                ? $context['sql']
-                : $message;
-            $this->collector->recordQuery($sql, $context['params'] ?? null);
-        }
     }
 }

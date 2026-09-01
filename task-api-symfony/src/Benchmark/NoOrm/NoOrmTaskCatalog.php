@@ -136,7 +136,7 @@ final class NoOrmTaskCatalog
 
         $state['updatePrototype'] = $this->buildWithRelations(1, ['tags']);
         $state['updatePrototype']->setTitle('NoORM updated title');
-        $state['updatePrototype']->setDescription('ORM isolation update');
+        $state['updatePrototype']->setDescription('Updated');
         $state['updatePrototype']->setStatus(Task::STATUS_DONE);
         $state['updatePrototype']->setPriority(Task::PRIORITY_HIGH);
 
@@ -255,7 +255,7 @@ final class NoOrmTaskCatalog
         EntityId::set($task, $id);
         $task->setProject($this->makeProject(false));
         $task->setTitle("NoORM Task {$id}");
-        $task->setDescription("In-memory task #{$id} for ORM isolation benchmark");
+        $task->setDescription("Task {$id}");
         $task->setStatus(Task::STATUS_TODO);
         $task->setPriority(Task::PRIORITY_MEDIUM);
 
@@ -272,7 +272,7 @@ final class NoOrmTaskCatalog
         EntityId::set($task, $id);
         $task->setProject($this->makeProject($includeProject));
         $task->setTitle("NoORM Task {$id}");
-        $task->setDescription("In-memory task #{$id} for ORM isolation benchmark");
+        $task->setDescription("Task {$id}");
         $task->setStatus(Task::STATUS_TODO);
         $task->setPriority(Task::PRIORITY_MEDIUM);
 
@@ -305,7 +305,7 @@ final class NoOrmTaskCatalog
         EntityId::set($project, 1);
         $project->setUser($state['sharedUser']);
         $project->setName('NoORM Project');
-        $project->setDescription('In-memory project for ORM isolation benchmark');
+        $project->setDescription(null);
         $project->setStatus(Project::STATUS_ACTIVE);
 
         if (!$includeInJson) {

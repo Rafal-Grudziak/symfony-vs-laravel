@@ -12,12 +12,10 @@ Aplikacja REST API przygotowana w Symfony 7 na potrzeby porównania frameworków
 
 ## Uruchomienie w Dockerze
 
-Repozytorium zawiera również drugi plik `compose.yaml` wykorzystywany przez Symfony Flex z bazą PostgreSQL. W przypadku tej aplikacji należy korzystać z pliku `docker-compose.yml`:
-
 ```bash
-docker compose -f docker-compose.yml up -d
-docker compose -f docker-compose.yml exec app composer install
-docker compose -f docker-compose.yml exec app php bin/console doctrine:migrations:migrate --no-interaction
+docker compose up -d
+docker compose exec app composer install
+docker compose exec app php bin/console doctrine:migrations:migrate --no-interaction
 ```
 
 Adres API:
@@ -69,29 +67,9 @@ Usunięcie parametru `--append` spowoduje wyczyszczenie bazy danych przed załad
 W Dockerze:
 
 ```bash
-docker compose -f docker-compose.yml exec app \
+docker compose exec app \
   php -d memory_limit=512M bin/console doctrine:fixtures:load --group=thesis --append --no-interaction
 ```
-
-## Testy wydajnościowe (k6)
-
-Scenariusze testowe znajdują się w katalogu `benchmark/k6/`. Wyniki testów zapisywane są w katalogu `benchmark/results/` w formatach JSON oraz CSV.
-
-Przykładowe uruchomienie:
-
-```bash
-export COMPOSE_PROFILES=benchmark
-./benchmark/run-compose-k6.sh 04-lazy-loading.js
-```
-
-Uruchomienie bez Dockera:
-
-```bash
-cd benchmark/k6
-BASE_URL=http://localhost:8081 VUS=50 DURATION=30s k6 run 01-crud.js
-```
-
-Szczegółowy opis dostępnych scenariuszy oraz konfiguracji znajduje się w pliku `benchmark/README.md`.
 
 ## API
 
@@ -135,9 +113,6 @@ Struktura odpowiedzi jest zgodna z aplikacją Laravel i zawiera sekcje `data`, `
 - `GET/POST /api/tasks`, `GET/PUT/DELETE /api/tasks/{id}`
 - `GET /api/comments`, `POST /api/tasks/{id}/comments`, `GET/PUT/DELETE /api/comments/{id}`
 - `GET/POST /api/tags`, `GET/PUT/DELETE /api/tags/{id}`
-- `GET /api/reports/tasks-per-project`
-- `GET /api/reports/top-projects`
-- `GET /api/reports/complex-task-overview`
 - `POST /api/benchmark/bulk-tasks`
 - `POST /api/benchmark/bulk-comments`
 
@@ -152,9 +127,3 @@ Struktura odpowiedzi jest zgodna z aplikacją Laravel i zawiera sekcje `data`, `
 - `src/Benchmark` i `src/EventSubscriber` – obsługa metryk wykorzystywanych podczas testów wydajnościowych,
 - `migrations` – migracje bazy danych,
 - `docker` – konfiguracja środowiska Docker.
-
-## Uwagi
-
-- Struktura odpowiedzi JSON została możliwie wiernie odwzorowana względem aplikacji Laravel.
-- Obsługiwane relacje ładowane są w sposób ograniczający problem N+1 zapytań.
-- Endpointy służące do testów wydajnościowych wykorzystują bezpośrednie zapytania SQL zamiast encji Doctrine, dzięki czemu możliwe jest sprawiedliwe porównanie z implementacją Laravel.

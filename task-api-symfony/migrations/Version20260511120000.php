@@ -7,9 +7,6 @@ namespace DoctrineMigrations;
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
 
-/**
- * Schema aligned with task-api-laravel (MySQL, BIGINT UNSIGNED PKs, indexes).
- */
 final class Version20260511120000 extends AbstractMigration
 {
     public function getDescription(): string

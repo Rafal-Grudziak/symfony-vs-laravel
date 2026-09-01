@@ -65,13 +65,6 @@ return [
             'replace_placeholders' => true,
         ],
 
-        'sql_benchmark' => [
-            'driver' => 'single',
-            'path' => storage_path('logs/sql_benchmark.log'),
-            'level' => 'debug',
-            'replace_placeholders' => false,
-        ],
-
         'daily' => [
             'driver' => 'daily',
             'path' => storage_path('logs/laravel.log'),

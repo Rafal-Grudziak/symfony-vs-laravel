@@ -10,10 +10,6 @@ use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 
-/**
- * Same scale as Laravel {@see TestDatasetSeeder}: 100 users, 50 projects, 100 tags,
- * 10_000 tasks (200 per project), 50_000 comments, random task_tag rows.
- */
 class TestDatasetFixture extends Fixture implements FixtureGroupInterface
 {
     public function __construct(

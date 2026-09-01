@@ -8,9 +8,6 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
-/**
- * Mirrors Laravel ForceJsonResponseHeader: prefer JSON error responses on /api.
- */
 final class ForceJsonRequestSubscriber implements EventSubscriberInterface
 {
     public static function getSubscribedEvents(): array

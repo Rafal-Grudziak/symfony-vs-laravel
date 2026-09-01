@@ -14,9 +14,6 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\PersistentCollection;
 use Doctrine\Persistence\Proxy;
 
-/**
- * JSON shapes aligned with Laravel API Resources (dates, nesting, omitted lazy relations).
- */
 final class ResourceSerializer
 {
     public function projectToArray(Project $p): array
@@ -57,8 +54,6 @@ final class ResourceSerializer
         ];
 
         if ($this->entityLoaded($t->getProject()) && !$this->collectionInitialized($t->getProject()->getTasks())) {
-            // Skip nested project when serializing a task under project->tasks (Doctrine populates
-            // the inverse side; Laravel only nests via explicit whenLoaded, not back-references).
             $out['project'] = $this->projectToArray($t->getProject());
         }
 
@@ -79,22 +74,6 @@ final class ResourceSerializer
         return $out;
     }
 
-    /**
-     * @param array{tags_count?: int, comments_count?: int} $extraCounts
-     */
-    public function taskToArrayWithCounts(Task $t, array $extraCounts = []): array
-    {
-        $base = $this->taskToArray($t);
-        if (array_key_exists('tags_count', $extraCounts)) {
-            $base['tags_count'] = $extraCounts['tags_count'];
-        }
-        if (array_key_exists('comments_count', $extraCounts)) {
-            $base['comments_count'] = $extraCounts['comments_count'];
-        }
-
-        return $base;
-    }
-
     public function commentToArray(Comment $c): array
     {
         $out = [
@@ -106,7 +85,6 @@ final class ResourceSerializer
         ];
 
         if ($this->entityLoaded($c->getTask()) && !$this->collectionInitialized($c->getTask()->getComments())) {
-            // Skip nested task when serializing a comment under task->comments (avoids infinite recursion).
             $out['task'] = $this->taskToArray($c->getTask());
         }
 

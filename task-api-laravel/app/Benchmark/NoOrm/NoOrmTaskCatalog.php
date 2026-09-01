@@ -142,7 +142,7 @@ final class NoOrmTaskCatalog
             tags: $this->cloneTags($tags),
         );
         $state['updatePrototype']->title = 'NoORM updated title';
-        $state['updatePrototype']->description = 'ORM isolation update';
+        $state['updatePrototype']->description = 'Updated';
         $state['updatePrototype']->status = Task::STATUS_DONE;
         $state['updatePrototype']->priority = Task::PRIORITY_HIGH;
 
@@ -249,7 +249,7 @@ final class NoOrmTaskCatalog
         $task = new Task([
             'project_id' => 1,
             'title' => "NoORM Task {$id}",
-            'description' => "In-memory task #{$id} for ORM isolation benchmark",
+            'description' => "Task {$id}",
             'status' => Task::STATUS_TODO,
             'priority' => Task::PRIORITY_MEDIUM,
             'due_date' => null,
@@ -268,7 +268,7 @@ final class NoOrmTaskCatalog
         $project = new Project([
             'user_id' => 1,
             'name' => 'NoORM Project',
-            'description' => 'In-memory project for ORM isolation benchmark',
+            'description' => null,
             'status' => Project::STATUS_ACTIVE,
         ]);
         $project->id = 1;

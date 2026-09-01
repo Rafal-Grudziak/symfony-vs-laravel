@@ -32,24 +32,6 @@ services:
     networks:
       - task-api-symfony
 
-  k6:
-    image: grafana/k6:0.55.0
-    profiles:
-      - benchmark
-    networks:
-      - task-api-symfony
-    volumes:
-      - ./benchmark:/var/benchmark:rw
-    working_dir: /var/benchmark/k6
-    environment:
-      BASE_URL: ${K6_BASE_URL:-http://nginx}
-      VUS: ${VUS:-10}
-      DURATION: ${DURATION:-30s}
-      RESULTS_DIR: /var/benchmark/results
-      TASK_MAX_ID: ${TASK_MAX_ID:-10000}
-      PROJECT_MAX_ID: ${PROJECT_MAX_ID:-50}
-      BULK_COUNT: ${BULK_COUNT:-50}
-
   mysql:
     image: mysql:8.4
     container_name: task-api-symfony-mysql
