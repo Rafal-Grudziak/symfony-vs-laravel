@@ -1,14 +1,4 @@
 #!/usr/bin/env python3
-"""
-Diagnostyka SQL: porównanie rzeczywistych zapytań Laravel vs Symfony.
-
-Pokrywa wszystkie scenariusze z:
-  - benchmark_read_operations.sh
-  - benchmark_write_operations.sh
-
-Czyta dump SQL z mechanizmu X-Benchmark-Sql-Log (pliki sql_benchmark.log),
-nie zgaduje zapytań na podstawie kodu. Jedno kontrolowane wykonanie każdego scenariusza.
-"""
 
 from __future__ import annotations
 
