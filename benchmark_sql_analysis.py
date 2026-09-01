@@ -481,7 +481,6 @@ def main() -> int:
     check_reachable(LARAVEL_BASE, "Laravel")
     check_reachable(SYMFONY_BASE, "Symfony")
 
-    # Upewnij się, że katalogi logów istnieją (Symfony tworzy plik przy pierwszym dumpie)
     LARAVEL_LOG.parent.mkdir(parents=True, exist_ok=True)
     SYMFONY_LOG.parent.mkdir(parents=True, exist_ok=True)
 
