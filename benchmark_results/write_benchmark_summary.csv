@@ -1,0 +1,4 @@
+scenario,laravel_avg_ms,symfony_avg_ms,laravel_median_ms,symfony_median_ms,laravel_p95_ms,symfony_p95_ms,laravel_avg_queries,symfony_avg_queries,faster_framework,difference_percent
+create_task,5.1045,15.950233,4.334,12.8465,10.573,33.922,3,3,laravel,67.9973
+update_task,5.055033,15.428133,4.8515,12.3725,6.631,28.518,5,3,laravel,67.2350
+delete_task,3.170767,5.939867,2.937,5.781,5.478,7.759,2,2,laravel,46.6189

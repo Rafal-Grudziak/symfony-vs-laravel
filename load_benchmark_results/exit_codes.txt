@@ -1,0 +1,6 @@
+laravel_10 exit_code=0
+symfony_10 exit_code=0
+laravel_50 exit_code=0
+symfony_50 exit_code=0
+laravel_100 exit_code=0
+symfony_100 exit_code=0

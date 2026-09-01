@@ -1,0 +1,445 @@
+{
+  "meta": {
+    "started_at": "2026-08-26 23:28:01 CEST",
+    "finished_at": "2026-08-26 23:28:02 CEST",
+    "laravel_url": "http://localhost:8080/api/tasks",
+    "symfony_url": "http://localhost:8081/api/tasks",
+    "method": "POST",
+    "endpoint": "/api/tasks"
+  },
+  "tests": [
+    {
+      "scenario": "empty_payload",
+      "request_payload": {},
+      "laravel": {
+        "http_status": 422,
+        "response_time_ms": 42.75,
+        "valid_json": true,
+        "has_validation_errors": true,
+        "error_count": 2,
+        "error_fields": [
+          "project_id",
+          "title"
+        ],
+        "message": "The project id field is required. (and 1 more error)",
+        "body": {
+          "message": "The project id field is required. (and 1 more error)",
+          "errors": {
+            "project_id": [
+              "The project id field is required."
+            ],
+            "title": [
+              "The title field is required."
+            ]
+          }
+        }
+      },
+      "symfony": {
+        "http_status": 422,
+        "response_time_ms": 38.14,
+        "valid_json": true,
+        "has_validation_errors": true,
+        "error_count": 2,
+        "error_fields": [
+          "projectId",
+          "title"
+        ],
+        "message": "The given data was invalid.",
+        "body": {
+          "message": "The given data was invalid.",
+          "errors": {
+            "projectId": [
+              "This value should be of type int."
+            ],
+            "title": [
+              "This value should be of type string."
+            ]
+          }
+        }
+      }
+    },
+    {
+      "scenario": "missing_title",
+      "request_payload": {
+        "description": "Test description",
+        "status": "todo",
+        "project_id": 1
+      },
+      "laravel": {
+        "http_status": 422,
+        "response_time_ms": 9.17,
+        "valid_json": true,
+        "has_validation_errors": true,
+        "error_count": 1,
+        "error_fields": [
+          "title"
+        ],
+        "message": "The title field is required.",
+        "body": {
+          "message": "The title field is required.",
+          "errors": {
+            "title": [
+              "The title field is required."
+            ]
+          }
+        }
+      },
+      "symfony": {
+        "http_status": 422,
+        "response_time_ms": 18.88,
+        "valid_json": true,
+        "has_validation_errors": true,
+        "error_count": 1,
+        "error_fields": [
+          "title"
+        ],
+        "message": "The given data was invalid.",
+        "body": {
+          "message": "The given data was invalid.",
+          "errors": {
+            "title": [
+              "This value should be of type string."
+            ]
+          }
+        }
+      }
+    },
+    {
+      "scenario": "empty_title",
+      "request_payload": {
+        "title": "",
+        "description": "Test description",
+        "status": "todo",
+        "project_id": 1
+      },
+      "laravel": {
+        "http_status": 422,
+        "response_time_ms": 8.15,
+        "valid_json": true,
+        "has_validation_errors": true,
+        "error_count": 1,
+        "error_fields": [
+          "title"
+        ],
+        "message": "The title field is required.",
+        "body": {
+          "message": "The title field is required.",
+          "errors": {
+            "title": [
+              "The title field is required."
+            ]
+          }
+        }
+      },
+      "symfony": {
+        "http_status": 422,
+        "response_time_ms": 17.67,
+        "valid_json": true,
+        "has_validation_errors": true,
+        "error_count": 1,
+        "error_fields": [
+          "title"
+        ],
+        "message": "The given data was invalid.",
+        "body": {
+          "message": "The given data was invalid.",
+          "errors": {
+            "title": [
+              "This value should not be blank."
+            ]
+          }
+        }
+      }
+    },
+    {
+      "scenario": "title_too_long",
+      "request_payload": {
+        "title": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+        "description": "Test description",
+        "status": "todo",
+        "project_id": 1
+      },
+      "laravel": {
+        "http_status": 422,
+        "response_time_ms": 8.36,
+        "valid_json": true,
+        "has_validation_errors": true,
+        "error_count": 1,
+        "error_fields": [
+          "title"
+        ],
+        "message": "The title field must not be greater than 255 characters.",
+        "body": {
+          "message": "The title field must not be greater than 255 characters.",
+          "errors": {
+            "title": [
+              "The title field must not be greater than 255 characters."
+            ]
+          }
+        }
+      },
+      "symfony": {
+        "http_status": 422,
+        "response_time_ms": 16.44,
+        "valid_json": true,
+        "has_validation_errors": true,
+        "error_count": 1,
+        "error_fields": [
+          "title"
+        ],
+        "message": "The given data was invalid.",
+        "body": {
+          "message": "The given data was invalid.",
+          "errors": {
+            "title": [
+              "This value is too long. It should have 255 characters or less."
+            ]
+          }
+        }
+      }
+    },
+    {
+      "scenario": "invalid_status",
+      "request_payload": {
+        "title": "Test task",
+        "description": "Test description",
+        "status": "not_a_valid_status",
+        "project_id": 1
+      },
+      "laravel": {
+        "http_status": 422,
+        "response_time_ms": 7.96,
+        "valid_json": true,
+        "has_validation_errors": true,
+        "error_count": 1,
+        "error_fields": [
+          "status"
+        ],
+        "message": "The selected status is invalid.",
+        "body": {
+          "message": "The selected status is invalid.",
+          "errors": {
+            "status": [
+              "The selected status is invalid."
+            ]
+          }
+        }
+      },
+      "symfony": {
+        "http_status": 422,
+        "response_time_ms": 16.08,
+        "valid_json": true,
+        "has_validation_errors": true,
+        "error_count": 1,
+        "error_fields": [
+          "status"
+        ],
+        "message": "The given data was invalid.",
+        "body": {
+          "message": "The given data was invalid.",
+          "errors": {
+            "status": [
+              "The value you selected is not a valid choice."
+            ]
+          }
+        }
+      }
+    },
+    {
+      "scenario": "invalid_project_id_type",
+      "request_payload": {
+        "title": "Test task",
+        "description": "Test description",
+        "status": "todo",
+        "project_id": "abc"
+      },
+      "laravel": {
+        "http_status": 422,
+        "response_time_ms": 6.52,
+        "valid_json": true,
+        "has_validation_errors": true,
+        "error_count": 1,
+        "error_fields": [
+          "project_id"
+        ],
+        "message": "The project id field must be an integer.",
+        "body": {
+          "message": "The project id field must be an integer.",
+          "errors": {
+            "project_id": [
+              "The project id field must be an integer."
+            ]
+          }
+        }
+      },
+      "symfony": {
+        "http_status": 422,
+        "response_time_ms": 13.93,
+        "valid_json": true,
+        "has_validation_errors": true,
+        "error_count": 1,
+        "error_fields": [
+          "projectId"
+        ],
+        "message": "The given data was invalid.",
+        "body": {
+          "message": "The given data was invalid.",
+          "errors": {
+            "projectId": [
+              "This value should be of type int."
+            ]
+          }
+        }
+      }
+    },
+    {
+      "scenario": "nonexistent_project",
+      "request_payload": {
+        "title": "Test task",
+        "description": "Test description",
+        "status": "todo",
+        "project_id": 999999
+      },
+      "laravel": {
+        "http_status": 422,
+        "response_time_ms": 8.13,
+        "valid_json": true,
+        "has_validation_errors": true,
+        "error_count": 1,
+        "error_fields": [
+          "project_id"
+        ],
+        "message": "The selected project id is invalid.",
+        "body": {
+          "message": "The selected project id is invalid.",
+          "errors": {
+            "project_id": [
+              "The selected project id is invalid."
+            ]
+          }
+        }
+      },
+      "symfony": {
+        "http_status": 422,
+        "response_time_ms": 23.57,
+        "valid_json": true,
+        "has_validation_errors": true,
+        "error_count": 1,
+        "error_fields": [
+          "project_id"
+        ],
+        "message": "The given data was invalid.",
+        "body": {
+          "message": "The given data was invalid.",
+          "errors": {
+            "project_id": [
+              "The selected project id is invalid."
+            ]
+          }
+        }
+      }
+    },
+    {
+      "scenario": "multiple_errors",
+      "request_payload": {
+        "project_id": 1,
+        "title": "",
+        "status": "invalid",
+        "priority": "invalid"
+      },
+      "laravel": {
+        "http_status": 422,
+        "response_time_ms": 7.65,
+        "valid_json": true,
+        "has_validation_errors": true,
+        "error_count": 3,
+        "error_fields": [
+          "priority",
+          "status",
+          "title"
+        ],
+        "message": "The title field is required. (and 2 more errors)",
+        "body": {
+          "message": "The title field is required. (and 2 more errors)",
+          "errors": {
+            "title": [
+              "The title field is required."
+            ],
+            "status": [
+              "The selected status is invalid."
+            ],
+            "priority": [
+              "The selected priority is invalid."
+            ]
+          }
+        }
+      },
+      "symfony": {
+        "http_status": 422,
+        "response_time_ms": 16.21,
+        "valid_json": true,
+        "has_validation_errors": true,
+        "error_count": 3,
+        "error_fields": [
+          "priority",
+          "status",
+          "title"
+        ],
+        "message": "The given data was invalid.",
+        "body": {
+          "message": "The given data was invalid.",
+          "errors": {
+            "title": [
+              "This value should not be blank."
+            ],
+            "status": [
+              "The value you selected is not a valid choice."
+            ],
+            "priority": [
+              "The value you selected is not a valid choice."
+            ]
+          }
+        }
+      }
+    },
+    {
+      "scenario": "malformed_json",
+      "request_payload": "{\"title\":\"Test\"",
+      "laravel": {
+        "http_status": 422,
+        "response_time_ms": 6.70,
+        "valid_json": true,
+        "has_validation_errors": true,
+        "error_count": 2,
+        "error_fields": [
+          "project_id",
+          "title"
+        ],
+        "message": "The project id field is required. (and 1 more error)",
+        "body": {
+          "message": "The project id field is required. (and 1 more error)",
+          "errors": {
+            "project_id": [
+              "The project id field is required."
+            ],
+            "title": [
+              "The title field is required."
+            ]
+          }
+        }
+      },
+      "symfony": {
+        "http_status": 400,
+        "response_time_ms": 11.23,
+        "valid_json": true,
+        "has_validation_errors": true,
+        "error_count": 1,
+        "error_fields": [],
+        "message": "Request payload contains invalid \"json\" data.",
+        "body": {
+          "message": "Request payload contains invalid \"json\" data."
+        }
+      }
+    }
+  ]
+}

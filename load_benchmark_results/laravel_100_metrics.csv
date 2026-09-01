@@ -1,0 +1,2 @@
+framework,vus,requests,requests_per_second,avg_ms,median_ms,p90_ms,p95_ms,min_ms,max_ms,http_error_rate,http_failed_requests,successful_responses,validation_failures,iterations,data_received,data_sent
+laravel,100,2610,83.81168881484203,968.9389107279694,960.1825,1130.5355,1168.27395,44.683,1278.609,0.0015325670498084292,4,2606,0,2610,618877718,388890

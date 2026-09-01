@@ -1,0 +1,2 @@
+framework,vus,requests,requests_per_second,avg_ms,median_ms,p90_ms,p95_ms,min_ms,max_ms,http_error_rate,http_failed_requests,successful_responses,validation_failures,iterations,data_received,data_sent
+symfony,10,322,10.474338553652588,740.5114316770189,728.8009999999999,872.7192,911.02415,377.159,1226.076,0,0,322,0,322,80096698,47978

@@ -1,0 +1,48 @@
+Load benchmark — scenario report
+================================
+Framework:     symfony
+Load level:    100 VU
+Base URL:      http://localhost:8081
+Endpoint:      GET /api/tasks?per_page=100&with=project,comments,tags
+Executor:      constant-vus
+Duration:      30s (metrics cover this window only; warm-up is outside k6)
+Sleep:         0.2s
+Test duration: 40761 ms
+
+HTTP request duration (ms)
+  avg:    9300.043693333331
+  med:    10628.343
+  p(90):  11284.7386
+  p(95):  11380.960799999999
+  min:    11.249
+  max:    11645.736
+
+Throughput
+  http_reqs count: 375
+  http_reqs rate:  9.199885695713512 /s
+  iterations:      375
+  iter rate:       9.199885695713512 /s
+  dropped iters:   0
+
+HTTP failures (http_req_failed — non-2xx / transport)
+  rate:             0.005333333333333333
+  estimated count:  2
+
+Validation (check / body — separate from HTTP failures)
+  successful_responses: 372
+  validation_failures:  1
+  validation_errors:    0.0026666666666666666
+
+Timing / data
+  http_req_waiting avg (ms): 9298.00582133333
+  endpoint_duration avg:     9300.043693333331
+  iteration_duration avg:    9505.590145210663
+  data_received (bytes):     92656080
+  data_sent (bytes):         55875
+  vus max:                   100
+  vus value:                 9
+
+Checks
+  status is 200: passes=373 fails=2
+  body is valid JSON: passes=372 fails=3
+  response contains task data: passes=372 fails=3

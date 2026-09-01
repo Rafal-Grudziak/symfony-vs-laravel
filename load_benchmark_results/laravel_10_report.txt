@@ -1,0 +1,48 @@
+Load benchmark — scenario report
+================================
+Framework:     laravel
+Load level:    10 VU
+Base URL:      http://localhost:8080
+Endpoint:      GET /api/tasks?per_page=100&with=project,comments,tags
+Executor:      constant-vus
+Duration:      30s (metrics cover this window only; warm-up is outside k6)
+Sleep:         0.2s
+Test duration: 30201 ms
+
+HTTP request duration (ms)
+  avg:    47.583955943474656
+  med:    43.043
+  p(90):  64.024
+  p(95):  79.99489999999999
+  min:    0.898
+  max:    162.775
+
+Throughput
+  http_reqs count: 1203
+  http_reqs rate:  39.833624585670705 /s
+  iterations:      1203
+  iter rate:       39.833624585670705 /s
+  dropped iters:   0
+
+HTTP failures (http_req_failed — non-2xx / transport)
+  rate:             0.0008312551953449709
+  estimated count:  1
+
+Validation (check / body — separate from HTTP failures)
+  successful_responses: 1202
+  validation_failures:  0
+  validation_errors:    0
+
+Timing / data
+  http_req_waiting avg (ms): 46.79146134663339
+  endpoint_duration avg:     47.583955943474656
+  iteration_duration avg:    250.28573259684097
+  data_received (bytes):     285445379
+  data_sent (bytes):         179247
+  vus max:                   10
+  vus value:                 10
+
+Checks
+  status is 200: passes=1202 fails=1
+  body is valid JSON: passes=1202 fails=1
+  response contains task data: passes=1202 fails=1

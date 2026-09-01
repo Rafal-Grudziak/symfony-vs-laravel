@@ -1,0 +1,10 @@
+scenario,laravel_avg_ms,symfony_avg_ms,laravel_median_ms,symfony_median_ms,laravel_p95_ms,symfony_p95_ms,laravel_avg_queries,symfony_avg_queries,laravel_avg_size_bytes,symfony_avg_size_bytes,faster_framework,difference_percent
+list_per_page_15,4.4819,12.051233,3.6795,9.069,11.136,29.619,2,3,4965,4063,laravel,62.8096
+list_per_page_100,7.478133,11.276767,5.2635,9.2735,8.695,24.192,2,3,22829,21922,laravel,33.6855
+single_task,2.09,6.221333,1.862,4.5165,2.748,16.236,1,1,212,212,laravel,66.4059
+list_with_project,4.559133,14.3527,4.312,10.9695,5.619,28.537,3,3,9688,6997,laravel,68.2350
+list_with_comments,5.232067,36.864867,5.072,32.833,5.469,45.953,3,3,25614,26272,laravel,85.8074
+list_with_tags,5.5598,43.941533,5.305,41.6065,8.111,54.452,3,3,10227,10884,laravel,87.3473
+list_with_all,8.104233,183.359233,7.4955,177.6305,11.687,222.887,5,3,35503,35899,laravel,95.5801
+list_100_with_all,27.308367,209.143467,26.516,205.312,33.542,221.713,5,3,236925,248188,laravel,86.9428
+single_with_all,3.718433,9.048867,3.5195,6.991,4.177,20.933,5,2,2397,3262,laravel,58.9072
