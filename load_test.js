@@ -46,9 +46,7 @@ const BASE_URL = (__ENV.BASE_URL || 'http://localhost:8080').replace(/\/$/, '');
 const FRAMEWORK = __ENV.FRAMEWORK || 'laravel';
 const VUS = Math.max(1, parseInt(__ENV.VUS || '10', 10) || 10);
 const LOAD_LEVEL = __ENV.LOAD_LEVEL || String(VUS);
-/** Fixed load duration for constant-vus (no ramp-up / ramp-down in measured window). */
 const DURATION = __ENV.DURATION || __ENV.STEADY_DURATION || '30s';
-/** Think-time between requests; set to 0 for maximum load. */
 const SLEEP_DURATION = parseFloat(__ENV.SLEEP_DURATION || '0.2');
 const RESULTS_DIR = (__ENV.RESULTS_DIR || '.').replace(/\/$/, '');
 const RESULT_PREFIX = __ENV.RESULT_PREFIX || `${FRAMEWORK}_${LOAD_LEVEL}`;
@@ -148,7 +146,6 @@ export default function () {
     'response contains task data': () => hasData,
   });
 
-  // Separate HTTP failures (k6 http_req_failed) from application/body validation.
   if (statusOk && jsonOk && hasData) {
     successfulResponses.add(1, requestTags);
     validationErrors.add(0, requestTags);
@@ -156,7 +153,6 @@ export default function () {
     validationFailures.add(1, requestTags);
     validationErrors.add(1, requestTags);
   } else {
-    // Non-200 / network error: counted by http_req_failed only.
     validationErrors.add(0, requestTags);
   }
 

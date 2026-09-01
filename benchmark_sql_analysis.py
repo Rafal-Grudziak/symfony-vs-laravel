@@ -57,7 +57,6 @@ class MeasuredRequest:
 
 
 SCENARIOS: list[tuple[str, str]] = [
-    # --- read (benchmark_read_operations.sh) ---
     ("list_per_page_15", "list_per_page_15 — GET /api/tasks?per_page=15"),
     ("list_per_page_100", "list_per_page_100 — GET /api/tasks?per_page=100"),
     ("single_task", "single_task — GET /api/tasks/{id}"),
@@ -67,7 +66,6 @@ SCENARIOS: list[tuple[str, str]] = [
     ("list_with_all", "list_with_all — GET …&with=project,comments,tags"),
     ("list_100_with_all", "list_100_with_all — GET …?per_page=100&with=project,comments,tags"),
     ("single_with_all", "single_with_all — GET /api/tasks/{id}?with=project,comments,tags"),
-    # --- write (benchmark_write_operations.sh) ---
     ("create_task", "create_task — POST /api/tasks"),
     ("update_task", "update_task — PUT /api/tasks/{id}"),
     ("delete_task", "delete_task — DELETE /api/tasks/{id}"),
